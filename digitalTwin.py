@@ -78,16 +78,20 @@ def on_message(client, userdata, message):
     # # print("message qos=",message.qos)
     # print("message retain flag=",message.retain)
 
-client_name = "client"
+client_name = "digital twin client"
 # MQTTclient = mqtt.Client(client_name)
 MQTTclient = mqtt.Client(client_name, True, None)
-MQTTclient.on_message=on_message
 # MQTTclient.connect("10.245.82.149", 1883)
-MQTTclient.connect("broker.hivemq.com", 1883)
+# MQTTclient.connect("broker.hivemq.com", 1883)
+
+
+MQTTclient.username_pw_set(username="ceeo", password="cee0prek!")
+MQTTclient.connect("173.76.110.237")
+MQTTclient.on_message=on_message
 
 MQTTclient.publish("test/message", "running " + client_name)
 
-MQTTclient.subscribe("car/fl")
+MQTTclient.subscribe("car/#")
 MQTTclient.loop_start()
 
 wheels = 4
